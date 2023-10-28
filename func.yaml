@@ -1,0 +1,19 @@
+specVersion: 0.35.0
+name: fn
+runtime: springboot
+registry: "dev.local"
+image: "dev.local/demo-native-test:kind"
+created: 2023-07-11T09:10:42.461499+02:00
+build:
+  buildEnvs:
+  - name: BP_NATIVE_IMAGE
+    value: "false"
+  - name: BP_JVM_VERSION
+    value: "17"
+  - name: BP_MAVEN_BUILD_ARGUMENTS
+    value: -Pnative -Dmaven.test.skip=true --no-transfer-progress package
+  pvcSize: 256Mi
+deploy:
+  healthEndpoints:
+    liveness: /actuator/health
+    readiness: /actuator/health

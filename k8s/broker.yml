@@ -1,0 +1,22 @@
+apiVersion: eventing.knative.dev/v1
+kind: Broker
+metadata:
+  annotations:
+    eventing.knative.dev/broker.class: Kafka
+  name: order-broker
+spec:
+  config:
+    apiVersion: v1
+    kind: ConfigMap
+    name: order-broker-config
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-broker-config
+data:
+  bootstrap.servers:
+  default.topic.partitions: "3"
+  default.topic.replication.factor: "1"

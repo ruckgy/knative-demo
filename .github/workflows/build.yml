@@ -1,0 +1,58 @@
+name: Build project
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    env:
+      ARTIFACT_REGISTRY: us-east4-docker.pkg.dev
+      GCP_PROJECT: cision-container-registry
+      GCP_DOCKER_REPOSITORY: container-artifact-registry
+      MUSL_TOOLCHAIN_DIR: ${{ github.workspace }}/x86_64-linux-musl-native
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '17.0.8'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
+          native-image-job-reports: 'true'
+          check-for-updates: 'true'
+          components: 'native-image'
+
+      - name: 'Authenticate to Google Cloud'
+        id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          workload_identity_provider: ${{ secrets.GCP_ARTIFACT_REGISTRY_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_ARTIFACT_REGISTRY_SERVICE_ACCOUNT }}
+          token_format: 'access_token'
+
+      - name: Provide authentication token to docker
+        uses: 'docker/login-action@v2'
+        with:
+          registry: ${{ env.ARTIFACT_REGISTRY }}
+          username: 'oauth2accesstoken'
+          password: '${{ steps.auth.outputs.access_token }}'
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          driver: docker
+          version: v0.10.0-rc3
+
+      - name: Generate docker image name
+        run: echo "docker-image=${{ env.ARTIFACT_REGISTRY }}/${{ env.GCP_PROJECT }}/${{ env.GCP_DOCKER_REPOSITORY }}/demo-func-reverse":kind" >> $GITHUB_ENV
+
+      - name: Build the project and Docker image
+        run: mvn --no-transfer-progress clean package deploy:deploy spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.docker-image }}
+
+      - name: Docker Push
+        run: docker push ${{ env.docker-image }}
