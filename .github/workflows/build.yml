@@ -10,6 +10,9 @@ jobs:
       GCP_PROJECT: cision-container-registry
       GCP_DOCKER_REPOSITORY: container-artifact-registry
       MUSL_TOOLCHAIN_DIR: ${{ github.workspace }}/x86_64-linux-musl-native
+    permissions:
+      id-token: 'write'
+      contents: 'read'
     runs-on: ubuntu-latest
 
     steps:
