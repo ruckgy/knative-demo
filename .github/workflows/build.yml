@@ -21,7 +21,7 @@ jobs:
       - name: Set up JDK
         uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '17.0.8'
+          java-version: '17.0.9'
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'maven'
@@ -52,7 +52,7 @@ jobs:
           version: v0.10.0-rc3
 
       - name: Generate docker image name
-        run: echo "docker-image=${{ env.ARTIFACT_REGISTRY }}/${{ env.GCP_PROJECT }}/${{ env.GCP_DOCKER_REPOSITORY }}/demo-func-reverse":kind" >> $GITHUB_ENV
+        run: echo "docker-image=${{ env.ARTIFACT_REGISTRY }}/${{ env.GCP_PROJECT }}/${{ env.GCP_DOCKER_REPOSITORY }}/demo-func-reverse:kind" >> $GITHUB_ENV
 
       - name: Build the project and Docker image
         run: mvn --no-transfer-progress clean package deploy:deploy spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.docker-image }}
