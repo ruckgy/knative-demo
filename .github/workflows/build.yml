@@ -55,7 +55,7 @@ jobs:
         run: echo "docker-image=${{ env.ARTIFACT_REGISTRY }}/${{ env.GCP_PROJECT }}/${{ env.GCP_DOCKER_REPOSITORY }}/demo-func-reverse:kind" >> $GITHUB_ENV
 
       - name: Build the project and Docker image
-        run: mvn --no-transfer-progress clean package deploy:deploy spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.docker-image }}
+        run: mvn --no-transfer-progress clean package spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.docker-image }}
 
       - name: Docker Push
         run: docker push ${{ env.docker-image }}
