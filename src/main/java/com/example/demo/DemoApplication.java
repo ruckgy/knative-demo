@@ -35,17 +35,17 @@ public class DemoApplication {
 		};
 	}
 
-//	@Bean
-//	public Function<Message<String>, Message<String>> uppercase() {
-//		return message -> {
-//			log.info("Input message:" + message);
-//			Message<String> response = CloudEventMessageBuilder
-//					.withData(message.getPayload().toUpperCase())
-//					.setId(UUID.randomUUID().toString())
-//					.build();
-//			log.info("Output message:" + response);
-//			return response;
-//		};
-//	}
+	@Bean
+	public Function<Message<String>, Message<String>> uppercase() {
+		return message -> {
+			log.info("Input message:" + message);
+			Message<String> response = CloudEventMessageBuilder
+					.withData(message.getPayload().toUpperCase())
+					.setId(UUID.randomUUID().toString())
+					.build();
+			log.info("Output message:" + response);
+			return response;
+		};
+	}
 
 }
