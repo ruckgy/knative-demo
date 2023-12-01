@@ -1,5 +1,0 @@
-spring:
-  cloud:
-    function:
-      definition: functionRouter
-      routing-expression: headers['ce-type']

@@ -1,0 +1,16 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: trigger-start
+spec:
+  broker: demo-broker
+  filter:
+    attributes:
+      type: dev.knative.kafka.event
+      kafkaheadercetype: start
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: func-reverse
+

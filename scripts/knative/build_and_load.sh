@@ -10,3 +10,11 @@ kn service update demo-func-reverse \
 kn service create demo-func-reverse \
   --concurrency-target=1 \
   --image=us-central1-docker.pkg.dev/knative-demo-403112/demo-registry/demo-func-reverse:kind -n demo
+
+us-east4-docker.pkg.dev/cision-container-registry/container-artifact-registry/demo-func-reverse:kind
+
+
+
+kn service create demo-func-reverse \
+  --concurrency-target=1 \
+  --image=docker.io/library/demo:0.0.1-SNAPSHOT -n demo
