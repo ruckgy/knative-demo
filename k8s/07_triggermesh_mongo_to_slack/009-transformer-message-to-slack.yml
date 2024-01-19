@@ -1,0 +1,20 @@
+apiVersion: extensions.triggermesh.io/v1alpha1
+kind: Function
+metadata:
+  name: message-to-slack-message
+spec:
+  runtime: python
+#  adapterOverrides:
+#    public: true
+  entrypoint: transformMessageToSlackMessage
+  ceOverrides:
+    extensions:
+      type: com.slack.webapi.chat.postMessage
+  code: |
+    import json
+
+    def transformMessageToSlackMessage(message, context):
+      return {
+        "channel":"C06F1M8EL7K",
+        "text": message
+      }

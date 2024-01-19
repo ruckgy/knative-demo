@@ -1,0 +1,29 @@
+apiVersion: flows.knative.dev/v1
+kind: Sequence
+metadata:
+  name: sequence
+spec:
+  channelTemplate:
+    apiVersion: messaging.knative.dev/v1beta1
+    kind: KafkaChannel
+    spec:
+      numPartitions: 3
+      replicationFactor: 3
+      config:
+        apiVersion: v1
+        kind: ConfigMap
+        name: kafka-channel-config
+  steps:
+    - ref:
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        name: func-reverse
+    - ref:
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        name: func-uppercase
+  reply:
+    ref:
+      kind: Broker
+      apiVersion: eventing.knative.dev/v1
+      name: demo-broker

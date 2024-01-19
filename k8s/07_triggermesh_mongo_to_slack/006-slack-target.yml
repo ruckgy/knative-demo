@@ -1,0 +1,9 @@
+apiVersion: targets.triggermesh.io/v1alpha1
+kind: SlackTarget
+metadata:
+  name: slack-tm
+spec:
+  token:
+    secretKeyRef:
+      name: slack-tm
+      key: token

@@ -1,0 +1,13 @@
+apiVersion: sources.triggermesh.io/v1alpha1
+kind: MongoDBSource
+metadata:
+  name: sample
+spec:
+  connectionString: mongodb+srv://triggermesh:triggermesh@cluster0.v2nxlx3.mongodb.net/
+  database: triggermesh
+  collection: test
+  sink:
+    ref:
+      kind: Broker
+      apiVersion: eventing.knative.dev/v1
+      name: demo-broker

@@ -33,7 +33,7 @@ export const options = {
     },
     stages: [
         { target: 1, duration: '10s' },
-        { target: 100, duration: '30s' },
+        { target: 10, duration: '30s' },
         { target: 0, duration: '30s' },
     ],
 };

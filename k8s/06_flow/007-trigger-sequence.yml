@@ -1,0 +1,15 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: sequence-trigger
+spec:
+  broker: demo-broker
+  filter:
+    attributes:
+      type: dev.knative.kafka.event
+      kafkaheadercetype: start
+  subscriber:
+    ref:
+      apiVersion: flows.knative.dev/v1
+      kind: Sequence
+      name: sequence

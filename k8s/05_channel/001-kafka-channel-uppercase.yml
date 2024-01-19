@@ -1,0 +1,15 @@
+apiVersion: messaging.knative.dev/v1
+kind: Channel
+metadata:
+  name: kafka-channel-uppercase
+spec:
+  channelTemplate:
+    apiVersion: messaging.knative.dev/v1beta1
+    kind: KafkaChannel
+    spec:
+      numPartitions: 3
+      replicationFactor: 3
+      config:
+        apiVersion: v1
+        kind: ConfigMap
+        name: kafka-channel-config
