@@ -3,7 +3,7 @@ kind: MongoDBSource
 metadata:
   name: sample
 spec:
-  connectionString: mongodb+srv://triggermesh:triggermesh@cluster0.v2nxlx3.mongodb.net/
+  connectionString: mongodb+srv://
   database: triggermesh
   collection: test
   sink:
