@@ -1,0 +1,14 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: mongochangeevent-to-transform
+spec:
+  broker: demo-broker
+  filters:
+    - exact:
+        type: io.triggermesh.mongodb.event
+  subscriber:
+    ref:
+      apiVersion: extensions.triggermesh.io/v1alpha1
+      kind: Function
+      name: mongodb-to-message

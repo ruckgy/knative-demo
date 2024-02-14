@@ -1,0 +1,14 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: message-to-slack-message-transform
+spec:
+  broker: demo-broker
+  filters:
+    - exact:
+        type: meetup.uppercase
+  subscriber:
+    ref:
+      apiVersion: extensions.triggermesh.io/v1alpha1
+      kind: Function
+      name: message-to-slack-message

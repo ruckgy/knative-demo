@@ -1,0 +1,14 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: slack-post-messages
+spec:
+  broker: demo-broker
+  filters:
+    - exact:
+        type:  com.slack.webapi.chat.postMessage
+  subscriber:
+    ref:
+      apiVersion: targets.triggermesh.io/v1alpha1
+      kind: SlackTarget
+      name: slack-tm

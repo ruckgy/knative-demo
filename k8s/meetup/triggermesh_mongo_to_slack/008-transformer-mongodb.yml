@@ -1,0 +1,18 @@
+apiVersion: extensions.triggermesh.io/v1alpha1
+kind: Function
+metadata:
+  name: mongodb-to-message
+spec:
+  runtime: python
+#  adapterOverrides:
+#    public: true
+  entrypoint: transformMongoDbChangeEventToMessage
+  ceOverrides:
+    extensions:
+      type: com.cision.knative.demo.slackMessage
+  code: |
+    import json
+
+    def transformMongoDbChangeEventToMessage(event, context):
+      jsonEvent = json.loads(event)
+      return jsonEvent['fullDocument']['message']

@@ -1,0 +1,18 @@
+specVersion: 0.36.0
+name: func-reverse
+runtime: python
+registry: dev.local
+image: dev.local/reverse:0.0.1
+created: 2024-02-08T07:53:39.84864+01:00
+invoke: cloudevent
+build:
+  builder: pack
+  pvcSize: 256Mi
+deploy:
+  namespace: demo
+  options:
+    scale:
+      metric: rps
+      target: 10
+      max: 3
+

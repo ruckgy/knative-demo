@@ -31,9 +31,12 @@ export const options = {
         kafka_writer_error_count: ["count == 0"],
         kafka_reader_error_count: ["count == 0"],
     },
+    startRate: 5,
+    preAllocatedVUs: 10,
+    maxVUs: 100,
     stages: [
         { target: 1, duration: '10s' },
-        { target: 10, duration: '30s' },
+        { target: 50, duration: '30s' },
         { target: 0, duration: '30s' },
     ],
 };

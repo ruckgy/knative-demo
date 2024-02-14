@@ -1,0 +1,19 @@
+apiVersion: messaging.knative.dev/v1
+kind: Subscription
+metadata:
+  name: kafka-subscription-reverse
+spec:
+  channel:
+    apiVersion: messaging.knative.dev/v1
+    kind: Channel
+    name: kafka-channel-reverse
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: func-reverse
+  reply:
+    ref:
+      apiVersion: messaging.knative.dev/v1
+      kind: Channel
+      name: kafka-channel-uppercase

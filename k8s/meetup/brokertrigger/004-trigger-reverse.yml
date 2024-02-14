@@ -1,0 +1,15 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: trigger-reverse
+spec:
+  broker: demo-broker
+  filter:
+    attributes:
+      type: meetup.reverse
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: func-uppercase
+

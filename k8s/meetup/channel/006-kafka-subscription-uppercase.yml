@@ -1,0 +1,19 @@
+apiVersion: messaging.knative.dev/v1
+kind: Subscription
+metadata:
+  name: kafka-subscription-uppercase
+spec:
+  channel:
+    apiVersion: messaging.knative.dev/v1
+    kind: Channel
+    name: kafka-channel-uppercase
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: func-uppercase
+  reply:
+    ref:
+      kind: Broker
+      apiVersion: eventing.knative.dev/v1
+      name: demo-broker

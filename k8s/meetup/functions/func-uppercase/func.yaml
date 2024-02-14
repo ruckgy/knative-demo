@@ -1,0 +1,16 @@
+specVersion: 0.36.0
+name: func-uppercase
+runtime: python
+registry: dev.local
+image: dev.local/func-uppercase:0.0.1
+created: 2024-02-10T09:57:52.535735+01:00
+invoke: cloudevent
+build:
+  builder: pack
+deploy:
+  namespace: demo
+  options:
+    scale:
+      target: 10
+      metric: rps
+      max: 3
